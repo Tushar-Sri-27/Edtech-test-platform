@@ -20,3 +20,13 @@ button {
     border: none;
     border-radius: 5px;
 }
+#score {
+    color: blue;
+    margin-top: 10px;
+}
+
+#result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
