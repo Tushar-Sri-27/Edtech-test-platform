@@ -10,6 +10,7 @@ const questions = [
         answer: "Temporary Memory"
     }
 ];
+questions.sort(() => Math.random() - 0.5);
 
 let currentIndex = 0;
 let score=0;
@@ -22,7 +23,9 @@ function loadQuestion() {
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
 
-    q.options.forEach(option => {
+    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+shuffledOptions.forEach(option => {
         const btn = document.createElement("button");
         btn.innerText = option;
 
@@ -35,14 +38,22 @@ function loadQuestion() {
 function checkAnswer(selected) {
     const buttons = document.querySelectorAll("#options button");
 
-    // Disable all buttons after one click
-    buttons.forEach(btn => btn.disabled = true);
+    buttons.forEach(btn => {
+        btn.disabled = true;
+
+        if (btn.innerText === questions[currentIndex].answer) {
+            btn.style.backgroundColor = "green";
+            btn.style.color = "white";
+        }
+
+        if (btn.innerText === selected && selected !== questions[currentIndex].answer) {
+            btn.style.backgroundColor = "red";
+            btn.style.color = "white";
+        }
+    });
 
     if (selected === questions[currentIndex].answer) {
         score++;
-        alert("Correct!");
-    } else {
-        alert("Wrong!");
     }
 }
 
