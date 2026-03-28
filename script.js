@@ -33,6 +33,11 @@ function loadQuestion() {
 }
 
 function checkAnswer(selected) {
+    const buttons = document.querySelectorAll("#options button");
+
+    // Disable all buttons after one click
+    buttons.forEach(btn => btn.disabled = true);
+
     if (selected === questions[currentIndex].answer) {
         score++;
         alert("Correct!");
