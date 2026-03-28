@@ -12,6 +12,7 @@ const questions = [
 ];
 
 let currentIndex = 0;
+let score=0;
 
 function loadQuestion() {
     const q = questions[currentIndex];
@@ -33,6 +34,7 @@ function loadQuestion() {
 
 function checkAnswer(selected) {
     if (selected === questions[currentIndex].answer) {
+        score++;
         alert("Correct!");
     } else {
         alert("Wrong!");
@@ -45,7 +47,7 @@ function nextQuestion() {
     if (currentIndex < questions.length) {
         loadQuestion();
     } else {
-        alert("Test Finished!");
+        alert("Test Finished! Your score: " + score);
     }
 }
 
