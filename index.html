@@ -5,8 +5,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <section class="header">
 
     <h1>Unit 1 Test</h1>
+    <textarea id="contentInput" placeholder="Paste chapter content here...">CPU is the brain of the computer.
+RAM is temporary memory used for processing.
+Operating system manages hardware and software resources.
+Network connects multiple devices.
+Router directs data packets.</textarea>
+<br>
+<button onclick="generateQuestions()">Generate Questions</button>
     <div id="question-box">
         <p id="question">Question will appear here</p>
         <div id="options"></div>
@@ -15,7 +23,7 @@
     <button onclick="handleNext()">Next</button>
 
     <script src="script.js"></script>
-    <h2 id="score">Score: 0</h2>
+    <h2 id="score">Score is 0</h2>
     <p id="result"></p>
 </body>
 </html>

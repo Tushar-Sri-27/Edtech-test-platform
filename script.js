@@ -26,7 +26,7 @@ const questionPool = [
     }
 ];
 questionPool.sort(() => Math.random() - 0.5);
-const questions = questionPool.slice(0, 3);
+let questions = questionPool.slice(0, 3);
 let currentIndex = 0;
 let score=0;
 let testFinished = false;
@@ -51,6 +51,76 @@ shuffledOptions.forEach(option => {
 
         optionsDiv.appendChild(btn);
     });
+}
+
+
+function generateQuestions() {
+    const content = document.getElementById("contentInput").value;
+
+    console.log("RAW CONTENT:", content); // ✅ AFTER declaration
+
+    const sentences = content
+        .split(/[.\n]/)
+        .map(s => s.trim())
+        .filter(s => s.length > 5);
+
+    console.log("Sentences:", sentences);
+
+    const generated = [];
+
+    sentences.slice(0, 5).forEach(sentence => {
+    const words = sentence.split(" ");
+
+    if (words.length >= 2) {
+        let answer = words[words.length - 1];
+
+        // clean answer safely
+        answer = answer.replace(/[^a-zA-Z]/g, "");
+
+        if (!answer) return; // skip empty
+
+        const questionText = sentence.replace(answer, "_____");
+
+        generated.push({
+            question: questionText,
+            options: generateOptions(answer),
+            answer: answer
+        });
+    }
+});
+
+    console.log("Generated:", generated);
+
+    if (generated.length === 0) {
+        alert("No questions generated. Try different content.");
+        return;
+    }
+
+    questions = generated;
+
+    currentIndex = 0;
+    score = 0;
+    testFinished = false;
+
+    document.getElementById("score").innerText = "Score: 0";
+    document.getElementById("result").innerText = "";
+
+    loadQuestion();
+}
+
+function generateOptions(correct) {
+    const options = [correct];
+
+    const dummy = ["Network", "Device", "Protocol", "Data", "System"];
+
+    while (options.length < 4) {
+        const rand = dummy[Math.floor(Math.random() * dummy.length)];
+        if (!options.includes(rand)) {
+            options.push(rand);
+        }
+    }
+
+    return options.sort(() => Math.random() - 0.5);
 }
 
 function checkAnswer(selected) {
